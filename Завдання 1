@@ -1,0 +1,30 @@
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        // Встановлення кодування консолі на UTF-8 для підтримки українських символів
+        Console.OutputEncoding = Encoding.UTF8;
+
+        // Запит користувача на введення рядка
+        Console.Write("Рядок:");
+        string str = Console.ReadLine();
+
+        // Запит користувача на введення позиції
+        Console.Write("Позиція:");
+        int Position = int.Parse(Console.ReadLine());
+
+        // Розділення рядка на дві частини: до вказаної позиції та після неї
+        string partBefore = str.Substring(0, Position);
+        string partAfter = str.Substring(Position);
+
+        // Заміна символів у другій частині рядка: 0 на x, 1 на 0, x на 1
+        partAfter = partAfter.Replace("0", "x");
+        partAfter = partAfter.Replace("1", "0");
+        partAfter = partAfter.Replace("x", "1");
+
+        // Виведення результату об'єднання першої частини рядка зі зміненою другою частиною
+        Console.WriteLine("Результат:" + partBefore + partAfter);
+    }
+}
