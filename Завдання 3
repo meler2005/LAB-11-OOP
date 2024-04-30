@@ -1,0 +1,52 @@
+using System;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Встановлення кодування консолі на UTF-8 для підтримки українських символів
+        Console.OutputEncoding = Encoding.UTF8;
+
+        // Вхідний рядок з датами
+        string str = "30.04.2024, 05.05.2024, 01.09.2023";
+
+        // Розбивка рядка на окремі компоненти за роздільником ','
+        string[] arr = str.Split(',');
+
+        // Створення списку для збереження об'єктів DateTime
+        List<DateTime> dates = new List<DateTime>();
+
+        // Перетворення кожного компонента рядка в об'єкт DateTime та додавання його до списку
+        foreach (var a in arr)
+        {
+            a.Trim(); // Видалення зайвих пробілів
+            string[] component = a.Split('.'); // Розділення рядка по символу '.'
+            dates.Add(new DateTime(int.Parse(component[2]), int.Parse(component[1]), int.Parse(component[0])));
+        }
+
+        // Знаходження року з найменшим номером серед дат
+        int minYear = dates[0].Year;
+        foreach (var date in dates)
+        {
+            if (date.Year < minYear)
+            {
+                minYear = date.Year;
+            }
+        }
+        Console.WriteLine($"Рік з найменшим номером: {minYear}");
+
+        // Вибірка весняних дат (з березня по травень) зі списку та їх вивід
+        var springDates = dates.Where(date => date.Month >= 3 && date.Month <= 5);
+        Console.WriteLine("Весняні дати:");
+        foreach (var date in springDates)
+        {
+            Console.WriteLine(date.ToString("dd.MM.yyyy"));
+        }
+
+        // Виведення найпізнішої дати
+        Console.WriteLine($"Сама пізня дата: {dates.Max().ToString("dd.MM.yyyy")}");
+    }
+}
