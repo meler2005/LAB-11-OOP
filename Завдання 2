@@ -1,0 +1,39 @@
+using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        // Встановлення кодування консолі на UTF-8 для підтримки українських символів
+        Console.OutputEncoding = Encoding.UTF8;
+
+        // Запит користувача на введення дати
+        Console.Write("Дата:");
+        string str = Console.ReadLine();
+
+        // Змінна для збереження введеної дати
+        DateTime Date;
+        // Спроба перетворити введений рядок у дату
+        DateTime.TryParse(str, out Date);
+
+        // Визначення різниці між введеною датою та сьогоднішньою датою
+        TimeSpan difference = Date - DateTime.Today;
+
+        // Перевірка, чи дата в майбутньому
+        if ((int)difference.TotalDays > 0)
+        {
+            Console.WriteLine($"Залишилося {difference.TotalDays} днів");
+        }
+        // Перевірка, чи сьогоднішня дата
+        else if ((int)difference.TotalDays == 0)
+        {
+            Console.WriteLine($"Сьогодні {Date.ToShortDateString()}");
+        }
+        // Виведення інформації про пройдений день, якщо дата в минулому
+        else
+        {
+            Console.WriteLine($"Вже минув {Math.Abs((int)difference.TotalDays)} день з {Date.ToShortDateString()}");
+        }
+    }
+}
